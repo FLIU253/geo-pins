@@ -51,6 +51,7 @@ const Login = ({ classes }) => {
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
         theme="dark"
+        buttonText="Login With Google"
       />
     </div>
   );
