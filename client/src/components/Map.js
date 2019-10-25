@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import ReactMapGl, { NavigationControl, Marker } from "react-map-gl";
 import { withStyles } from "@material-ui/core/styles";
+import differenceInMinutes from "date-fns/difference_in_minutes";
 // import Button from "@material-ui/core/Button";
 // import Typography from "@material-ui/core/Typography";
 // import DeleteIcon from "@material-ui/icons/DeleteTwoTone";
@@ -60,6 +61,13 @@ const Map = ({ classes }) => {
     });
   };
 
+  const highlightNewPin = pin => {
+    const isnewPin =
+      differenceInMinutes(Date.now(), Number(pin.createdAt)) <= 30;
+
+    return isnewPin ? "limegreen" : "darkblue";
+  };
+
   return (
     <div className={classes.root}>
       <ReactMapGl
@@ -111,7 +119,7 @@ const Map = ({ classes }) => {
             offsetLeft={-19}
             offsetTop={-37}
           >
-            <PinIcon size={40} color="darkblue" />
+            <PinIcon size={40} color={highlightNewPin(pin)} />
           </Marker>
         ))}
       </ReactMapGl>
